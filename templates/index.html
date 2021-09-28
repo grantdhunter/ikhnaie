@@ -1,0 +1,68 @@
+<html>
+  <head>
+    <title>Location Sharing</title>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
+    <style>
+      #container {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          width: 100%;
+          display: flex;
+          justify-content: center;
+      }
+      #map {
+          width: 100%;
+          height: 100%;
+          z-index: 1;
+          position: absolute;
+          visibility: hidden;
+      }
+      #message {
+          align-self: center;
+          visibility: visible;
+          align-self: center;
+      }
+      #form {
+          z-index: 2;
+          background: white;
+          border-radius: 10px;
+          padding: 1em;
+          align-self: end;
+          display: flex;
+          justify-content: space-around;
+          margin: 1em;
+      }
+      #form input {
+          border-radius: 5px;
+          height: 3em;
+          width: 17em;
+          text-align: center;
+      }
+      #name-submit {
+          border-radius: 50%;
+          background-color: green;
+          font-weight: bolder;
+          width: 3em;
+          height: 3em;
+          border-color: green;
+          margin-left: 1em;
+      }
+    </style>
+    <script>MAPBOX_API_KEY = "{{ .Mapbox_api_key }}";
+    </script>
+  </head>
+  <div id="container">
+    <div id="message">...</div>
+    <div id="form">
+      <input type="text" id="name" placeholder="Name"></input>
+      <button id="name-submit">&#10004;</button>
+    </div>
+    <div id='map'></div>
+    </div>
+  <script src="/static/map.js"></script>
+</html>
+
+
+<p>
