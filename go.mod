@@ -1,4 +1,4 @@
-module goatchat/share-location
+module github.com/grantdhunter/ikhnaie
 
 go 1.17
 

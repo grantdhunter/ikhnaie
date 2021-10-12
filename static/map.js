@@ -1,15 +1,17 @@
 mapboxgl.accessToken = MAPBOX_API_KEY
 
+const AUTH_TOKEN = getAuthToken()
 const ROOM_ID = getRoomId()
 const CLIENT_ID = getClientId()
+
 
 let markers = {}
 
 function getRoomId() {
     let path = window.location.pathname
-    if (path == '/') {
+    if (path == '/app/') {
         let roomId = window.crypto.getRandomValues(new Uint32Array(1))[0].toString(16)
-        window.history.pushState({ roomId: roomId }, "", "/" + roomId)
+        window.history.pushState({ roomId: roomId }, "", "/app/" + roomId)
         return roomId
     } else {
         let elem = path.split("/")
@@ -28,6 +30,16 @@ function getClientId() {
     return id
 }
 
+function getAuthToken() {
+    let token = localStorage.getItem("token")
+    if (token) {
+        return token
+    }
+    let urlParams = new URLSearchParams(window.location.search);
+    token = urlParams.get('token')
+    localStorage.setItem("token", token)
+    return token
+}
 
 function showError(error) {
     let x = document.getElementById("container")
@@ -124,7 +136,8 @@ map.on('click', function(e) {
 var socket
 var reconnectTimer
 function connectWebSocket() {
-    socket = new WebSocket("wss://" + window.location.host + "/ws/?clientId=" + CLIENT_ID)
+    socket = new WebSocket("wss://" + window.location.host +
+                           "/app/ws/?clientId=" + CLIENT_ID + "&token=" + AUTH_TOKEN)
 }
 
 connectWebSocket()
